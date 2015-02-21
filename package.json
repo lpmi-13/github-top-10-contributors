@@ -1,6 +1,6 @@
 {
   "name": "github-top-10-contributors",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node module to query the GitHub API and get the \"top 10 contributors\" for a particular repository.",
   "main": "index.js",
   "scripts": {
