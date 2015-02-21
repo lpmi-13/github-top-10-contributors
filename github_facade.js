@@ -13,9 +13,13 @@ var defaultOptions = {
 		}
 	};
 	
-module.exports.getTopUsers = function(count, onResult) {
+module.exports.getTopContributorsByUserAndRepos = function(user, repos, count, onResult) {
 	// var options = Object.clone(defaultOptions); // ES5 Object.clone // NOT ready: TypeError: Object function Object() { [native code] } has no method 'clone'
 	var options = defaultOptions; // Not good but ok since I can assume "options.path" will always be re-assigned properly for each function.
+	// V3 API
+	//syntax: repos/:user/:repo/collaborators [GET]
+	// Ex: https://api.github.com/repos/sage/streamlinejs/contributors
+	options.path = '/repos/'+ user+'/'+repos+'/contributors'; // NOTE: result is sorted by "contributions"
 	
 	var req = https.request(options, function(res){
 		var output='';
@@ -29,7 +33,17 @@ module.exports.getTopUsers = function(count, onResult) {
 		
 		res.on('end', function(){
 			var obj = JSON.parse(output);
-			onResult(res.statusCode, obj);
+			if(count && count > 0){
+				var subset = [];
+				for(var i=0; i<count && i<obj.length; i++){
+					subset.push(obj[i]);
+				}
+				
+				onResult(res.statusCode, subset);
+			}
+			else {// return all users
+				onResult(res.statusCode, obj);
+			}
 		});
 	});
 	
@@ -38,8 +52,6 @@ module.exports.getTopUsers = function(count, onResult) {
 	});
 	
 	req.end();
-  //var jsonObject = JSON.parse(data);
-  //return width * height;
 };
 
 module.exports.getUserDetailByUserName = function(userName, onResult) {
