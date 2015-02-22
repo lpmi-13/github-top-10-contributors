@@ -39,10 +39,10 @@ module.exports.getTopContributorsByUserAndRepos = function(user, repos, count, o
 					subset.push(obj[i]);
 				}
 				
-				onResult(res.statusCode, subset);
+				onResult(user, repos, res.statusCode, subset);
 			}
 			else {// return all users
-				onResult(res.statusCode, obj);
+				onResult(user, repos, res.statusCode, obj);
 			}
 		});
 	});
