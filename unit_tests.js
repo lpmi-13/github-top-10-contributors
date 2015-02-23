@@ -8,6 +8,13 @@ exports.getTopContributorsByUserAndRepos = {
 			
 			test.done();
 		});
+	},
+	NonExistingRepositoryReturn404: function(test){
+		github.getTopContributorsByUserAndRepos('non-existing', 'non-existing', 10, function(user, repos, statusCode, json){
+			test.equal(statusCode, 404, 'Should return 404 error code for non-existing repository.');
+			
+			test.done();
+		});
 	}
 };
 

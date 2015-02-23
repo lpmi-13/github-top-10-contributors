@@ -48,7 +48,7 @@ github.getTopContributorsByUserAndRepos('sage','streamlinejs', null, function(st
 	console.log(json.length + ' contributors');
 });
 */
-
+/*
 github.getUserDetailByUserName('non-existing', function(statusCode, json){
 	console.log(statusCode);
 	console.log(json);
@@ -58,3 +58,4 @@ github.getUserDetailByUserName('calvin-m', function(statusCode, json){
 	console.log(statusCode);
 	console.log(json);
 });
+*/
